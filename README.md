@@ -6,9 +6,8 @@
 
 `Kurulum: pip install -r requirements.txt`
 
-## Proje Klasör Yapısı:
 
-## 📂 Proje Klasör Yapısı
+### 📂 Proje Klasör Yapısı
 ```
 solar-forecasting-xai/
 ├── data/                         # Veri yönetimi
