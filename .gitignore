@@ -1,0 +1,9 @@
+data/raw/
+data/processed/
+outputs/models/
+.env
+config/config.yaml
+__pycache__/
+.ipynb_checkpoints/
+*.DS_Store
+.env
