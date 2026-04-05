@@ -7,34 +7,36 @@
 `Kurulum: pip install -r requirements.txt`
 
 ## Proje Klasör Yapısı:
-`
+
+## 📂 Proje Klasör Yapısı
+```
 solar-forecasting-xai/
-├── data/                   # Veri yönetimi
-│   ├── raw/                # NREL'den gelen ham CSV/Parquet dosyaları (Git'e eklenmez)
-│   └── processed/          # Temizlenmiş, filtrelenmiş ve kümelenmiş veriler
-├── notebooks/              # Deney alanı (Jupyter Notebooks)
-│   ├── 01_data_acquisition.ipynb   # API ile veri çekme
-│   ├── 02_eda_analysis.ipynb       # Keşifsel veri analizi
-│   ├── 03_clustering_adaptive.ipynb # K-Means ve Adaptif Filtreleme testleri
-│   ├── 04_model_training.ipynb     # Autoformer/PatchTST eğitimleri
-│   └── 05_xai_evaluation.ipynb      # SHAP analizleri ve raporlama
-├── src/                    # Projenin motoru (Python Modülleri)
+├── data/                         # Veri yönetimi
+│   ├── raw/                      # NREL'den gelen ham veriler (Git-ignored)
+│   └── processed/                # Temizlenmiş ve kümelenmiş veriler
+├── notebooks/                    # Deney alanı (Jupyter Notebooks)
+│   ├── 01_data_acquisition.ipynb # API ile veri çekme
+│   ├── 02_eda_analysis.ipynb     # Keşifsel veri analizi
+│   ├── 03_clustering_adaptive.ipynb
+│   ├── 04_model_training.ipynb   # Autoformer/PatchTST eğitimleri
+│   └── 05_xai_evaluation.ipynb   # SHAP analizleri ve raporlama
+├── src/                          # Projenin motoru (Python Modülleri)
 │   ├── __init__.py
-│   ├── data_loader.py      # Veri okuma ve API işlemleri
-│   ├── filters.py          # 12 farklı filtre (Wavelet, Hampel, vb.) fonksiyonları
-│   ├── clustering.py       # K-Means senaryo ayırma kodları
-│   ├── models/             # Derin öğrenme mimarileri
+│   ├── data_loader.py            # Veri okuma ve API işlemleri
+│   ├── filters.py                # 12 farklı filtre fonksiyonu
+│   ├── clustering.py             # K-Means senaryo ayırma
+│   ├── models/                   # Derin öğrenme mimarileri
 │   │   ├── __init__.py
 │   │   ├── autoformer.py
 │   │   └── patchtst.py
-│   └── utils.py            # Yardımcı fonksiyonlar (Plotting, metrics)
-├── outputs/                # Çıktılar
-│   ├── models/             # Eğitilmiş .pth veya .h5 dosyaları
-│   ├── plots/              # Makale için kaydedilen grafikler
-│   └── reports/            # Tahmin sonuçları (CSV/Excel)
-├── config/                 # Parametre yönetimi
-│   └── config.yaml         # API anahtarları, model hiperparametreleri
-├── .gitignore              # GitHub'a gönderilmeyecek dosyalar
-├── requirements.txt        # Kütüphane listesi
-└── README.md               # Proje tanıtımı ve kurulum rehberi
-`
+│   └── utils.py                  # Yardımcı fonksiyonlar (Plot, metrics)
+├── outputs/                      # Çıktılar
+│   ├── models/                   # Eğitilmiş .pth / .h5 dosyaları
+│   ├── plots/                    # Grafik çıktıları
+│   └── reports/                  # CSV/Excel raporları
+├── config/                       # Parametre yönetimi
+│   └── config.yaml               # API key ve hiperparametreler
+├── .gitignore                    # Git dışı bırakılacaklar
+├── requirements.txt              # Kütüphane listesi
+└── README.md                     # Proje dokümantasyonu
+```
