@@ -6,7 +6,7 @@ from typing import Optional
 def fetch_nrel_data(api_key: str, lat: float, lon: float, year: int = 2023) -> Optional[pd.DataFrame]:
     """
     NREL NSRDB API'sinden belirtilen konum ve yıl için güneş/meteroloji verilerini indirir.
-    url = "https://developer.nrel.gov/api/nsrdb/v2/solar/nsrdb-GOES-aggregated-v4-0-0-download.csv"
+    url = "https://developer.nlr.gov/api/nsrdb/v2/solar/nsrdb-GOES-aggregated-v4-0-0-download.csv"
     Args:
         api_key (str): NREL geliştirici API anahtarı.
         lat (float): Veri alınacak noktanın enlem değeri.
@@ -18,7 +18,7 @@ def fetch_nrel_data(api_key: str, lat: float, lon: float, year: int = 2023) -> O
         İstek veya parse başarısız olursa None döner.
     """
 
-    url = "https://developer.nrel.gov/api/nsrdb/v2/solar/nsrdb-GOES-aggregated-v4-0-0-download.csv"
+    url = "https://developer.nlr.gov/api/nsrdb/v2/solar/nsrdb-GOES-aggregated-v4-0-0-download.csv"
 
     # PAYLOAD OLUŞTURMA
     # Dokümantasyondaki zorunlu alanları buraya ekle.
