@@ -11,7 +11,6 @@
 ```
 solar-forecasting-xai/
 ├── data/                         # Veri yönetimi
-│   ├── raw/                      # NREL'den gelen ham veriler (Git-ignored)
 │   └── processed/                # Temizlenmiş ve kümelenmiş veriler
 ├── notebooks/                    # Deney alanı (Jupyter Notebooks)
 │   ├── 01_data_acquisition.ipynb # API ile veri çekme
