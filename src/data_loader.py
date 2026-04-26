@@ -64,5 +64,33 @@ def fetch_nrel_data(api_key: str, lat: float, lon: float, year: int = 2023) -> O
         print(f"API isteği sırasında hata oluştu: {e}")
         return None  # Hata durumunda boş bir DataFrame döndürülebilir veya None döndürülebilir
 
+def build_multicity_dataset(api_key: str, cities: dict[str, tuple], years: list[int]) -> Optional[pd.DataFrame]:
+    """
+    Birden fazla şehir ve yıl için NREL verisini çeker, birleştirir ve 'City' kolonu ekler.
+    """
+    frames = []
+    
+    # Her şehir ve yıl kombinasyonu için veriyi çek ve işaretle
+    for city_name, coords in cities.items():
+        lat, lon = coords
+        print(f"\n {city_name} bölgesi için veri hasadı başlıyor...")
+        
+        for y in years:
+            print(f"   -> {y} verisi çekiliyor...")
+            df_year = fetch_nrel_data(api_key, lat, lon, y)
+            
+            if df_year is not None:
+                df_year["Requested Year"] = y
+                df_year["City"] = city_name  # En kritik dokunuş: Hangi şehir olduğunu etiketliyoruz!
+                frames.append(df_year)
+            else:
+                print(f"   HATA: {city_name} {y} için veri çekilemedi.")
 
- 
+    if not frames:
+        return None
+
+    # Bütün parçaları tek bir devasa tabloda birleştir
+    print("\n Bütün veriler başarıyla indirildi, birleştiriliyor...")
+    final_df = pd.concat(frames, ignore_index=True)
+    
+    return final_df
