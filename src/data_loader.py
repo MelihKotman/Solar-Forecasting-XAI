@@ -2,6 +2,7 @@ import requests
 import pandas as pd
 from io import StringIO
 from typing import Optional
+import time
 
 import openmeteo_requests
 import requests_cache
@@ -113,18 +114,44 @@ def fetch_global_ood_data(start_date="2023-01-01", end_date="2023-12-31"):
     openmeteo = openmeteo_requests.Client(session = retry_session)
 
     locations = {
-    "Bolu_TR":       {"lat": 40.73, "lon": 31.60},    # Mevcut
-    "Sydney_AU":     {"lat": -33.86, "lon": 151.20},  # Mevcut
-    "CapeTown_ZA":   {"lat": -33.92, "lon": 18.42},   # Mevcut
-    "Tokyo_JP":      {"lat": 35.67, "lon": 139.65},   # Mevcut
-    #"Oslo_NO":       {"lat": 59.91, "lon": 10.75},    # YENİ: Kuzey Enlem
-    #"SaoPaulo_BR":   {"lat": -23.55, "lon": -46.63}   # YENİ: Güney Amerika
+    # ─── 0. ORİJİNAL LİSTE (Sıcak, Kurak ve Yüksek GHI) ──────────────────────
+    "Sevilla_ES":      {"lat": 37.39,  "lon": -5.98},    # Güneybatı Avrupa, kurak yaz
+    "Almeria_ES":      {"lat": 36.83,  "lon": -2.46},    # Akdeniz kurak
+    "Tucson_AZ":       {"lat": 32.22,  "lon": -110.97},  # Çöl, yüksek güneşlenme
+    "LasVegas_NV":     {"lat": 36.17,  "lon": -115.14},  # Çöl, yüksek GHI
+    "Muscat_OM":       {"lat": 23.59,  "lon": 58.41},    # Subtropikal kurak
+    
+    # ─── 1. ZORLU SENARYO (Sürekli Kapalı, Yağışlı ve Düşük GHI) ─────────────
+    "London_UK":       {"lat": 51.51,  "lon": -0.13},    # Okyanusal, kapalı ve düşük ışınım
+    "Seattle_WA":      {"lat": 47.61,  "lon": -122.33},  # Günlerce süren yağmur/bulut
+    "Berlin_DE":       {"lat": 52.52,  "lon": 13.40},    # Karasal Avrupa, kışın koyu gri gökyüzü
+    
+    # ─── 2. KAOTİK SENARYO (Tropikal, Muson ve Ani Kırılmalar) ───────────────
+    "Singapore_SG":    {"lat": 1.35,   "lon": 103.82},   # Ekvatoral, aniden bastıran sağanaklar
+    "Mumbai_IN":       {"lat": 19.08,  "lon": 72.88},    # Muson iklimi, aşırı bulutlanma geçişleri
+    "Miami_FL":        {"lat": 25.76,  "lon": -80.19},   # Subtropikal, yüksek nem ve okyanus fırtınaları
+    
+    # ─── 3. FİZİKSEL SINIRLAR (Ekstrem Zenith Açısı ve Kar Yansıması/Albedo) ─
+    "Oslo_NO":         {"lat": 59.91,  "lon": 10.75},    # Yüksek enlem, çok dar açılı kış güneşi
+    "Anchorage_AK":    {"lat": 61.22,  "lon": -149.90},  # Çok yüksek enlem, dondurucu soğuk ve kar yansıması
+    "Toronto_CA":      {"lat": 43.65,  "lon": -79.38},   # Karasal soğuk, kışın karlı kapalı günler
+    
+    # ─── 4. TERS DİNAMİKLER (Güney Yarımküre - Mevsimsel Ezber Sınaması) ─────
+    "AliceSprings_AU": {"lat": -23.70, "lon": 133.88},   # Güney Y.K. (Ocak-Mart arası kavurucu yazdır)
+    "Calama_CL":       {"lat": -22.45, "lon": -68.93},   # Atacama Çölü, dünyadaki en yüksek GHI noktalarından
+    "CapeTown_ZA":     {"lat": -33.92, "lon": 18.42},    # Akdeniz iklimi ama mevsimler ters
+    
+    # ─── 5. MEKANSAL EZBER KONTROLÜ (Çok Yakın Coğrafyalar) ──────────────────
+    "Cordoba_ES":      {"lat": 37.89,  "lon": -4.78},    # Sevilla'ya komşu (Bölgeyi mi ezberledi, fiziği mi?)
+    "Phoenix_AZ":      {"lat": 33.45,  "lon": -112.07},  # Tucson'a çok yakın devasa çöl
+    "Dubai_AE":        {"lat": 25.20,  "lon": 55.27}     # Muscat komşusu, kum fırtınası dinamikleri
 }
 
     all_city_data = []
     
     for city, coords in locations.items():
         print(f"🌍 {city} için OOD test verisi çekiliyor...")
+        time.sleep(2)
         url = "https://archive-api.open-meteo.com/v1/archive"
         params = {
             "latitude": coords['lat'],
@@ -132,7 +159,8 @@ def fetch_global_ood_data(start_date="2023-01-01", end_date="2023-12-31"):
             "start_date": start_date,
             "end_date": end_date,
             "hourly": ["temperature_2m", "relative_humidity_2m", "wind_speed_10m", "cloud_cover", "shortwave_radiation"],
-            "wind_speed_unit": "ms"  
+            "wind_speed_unit": "ms",
+            "timezone" : "auto"  
         }
         try:
             response = openmeteo.weather_api(url, params=params, timeout = 10)[0]
@@ -164,14 +192,13 @@ def fetch_global_ood_data(start_date="2023-01-01", end_date="2023-12-31"):
         
         df['hour'] = df.index.hour
         df['month'] = df.index.month
-        df['hour_sin'] = np.sin(2 * np.pi * df['hour'] / 23.0)
-        df['hour_cos'] = np.cos(2 * np.pi * df['hour'] / 23.0)
+        df['hour_sin'] = np.sin(2 * np.pi * df['hour'] / 24.0)
+        df['hour_cos'] = np.cos(2 * np.pi * df['hour'] / 24.0)
         df['month_sin'] = np.sin(2 * np.pi * df['month'] / 12.0)
         df['month_cos'] = np.cos(2 * np.pi * df['month'] / 12.0)
         
         expected_cols = ['GHI_Filtered', 'Solar Zenith Angle', 'Temperature', 'Relative Humidity', 
-                         'Wind Speed', 'Cloud Type', 'Clearness_Index', 
-                         'hour_sin', 'hour_cos', 'month_sin', 'month_cos']
+                         'Wind Speed', 'hour_sin', 'hour_cos', 'month_sin', 'month_cos', 'Cloud Type', 'Clearness_Index']
         
         df = df.reset_index()[['datetime'] + expected_cols]
         df['City'] = city
