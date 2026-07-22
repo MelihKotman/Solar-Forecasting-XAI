@@ -165,9 +165,40 @@ Run notebooks sequentially.
 
 If you use this project in your research, please cite the corresponding publication.
 
+# Atıf Künyeleri
+
+## 📌 IEEE Format
+```
+> M. Y. Kotman and M. Milli, "Güneş Enerjisi Üretimi Tahmininde Transformer Tabanlı ve Rejim Duyarlı Uyarlamalı Sinyal Filtreleme: Küresel Ölçekte Genellenebilir Ve Açıklanabilir Boru Hattı Tasarımı," in Machine Learning Applications Across Disciplines: Case Studies on Forecasting, Classification, and Explainability, Bidge Yayınları, 2026, pp. 1–53. doi: 10.70269/4277655638.
+```
+
 ---
 
-#  Author
+## 📌 APA 7 Format
+```
+> Kotman, M. Y., & Milli, M. (2026). Güneş enerjisi üretimi tahmininde Transformer tabanlı ve rejim duyarlı uyarlamalı sinyal filtreleme: Küresel ölçekte genellenebilir ve açıklanabilir boru hattı tasarımı. In Machine Learning Applications Across Disciplines: Case Studies on Forecasting, Classification, and Explainability (pp. 1–53). Bidge Yayınları. https://doi.org/10.70269/4277655638
+```
+
+---
+
+## 📌 BibTeX Format
+
+```
+ @incollection{KotmanMilli2026,
+  author    = {Kotman, Melih Yi{\u{g}}it and Milli, Mehmet},
+  title     = {G{\"u}ne{\c{s}} Enerjisi {\"U}retimi Tahmininde Transformer Tabanl{\i} ve Rejim Duyarl{\i} Uyarlamal{\i} Sinyal Filtreleme: K{\"u}resel {\"O}l{\c{c}}ekte Genellenebilir ve A{\c{c}}{\i}klanabilir Boru Hatt{\i} Tasar{\i}m{\i}},
+  booktitle = {Machine Learning Applications Across Disciplines: Case Studies on Forecasting, Classification, and Explainability},
+  publisher = {Bidge Yay{\i}nlar{\i}},
+  year      = {2026},
+  month     = jul,
+  pages     = {1--53},
+  doi       = {10.70269/4277655638},
+  url       = {https://doi.org/10.70269/4277655638}
+}
+```
+---
+
+# Author
 
 **Melih Yiğit Kotman**
 
