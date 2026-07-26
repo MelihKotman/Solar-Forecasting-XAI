@@ -169,14 +169,14 @@ If you use this project in your research, please cite the corresponding publicat
 
 ## 📌 IEEE Format
 ```
-> M. Y. Kotman and M. Milli, "Güneş Enerjisi Üretimi Tahmininde Transformer Tabanlı ve Rejim Duyarlı Uyarlamalı Sinyal Filtreleme: Küresel Ölçekte Genellenebilir Ve Açıklanabilir Boru Hattı Tasarımı," in Machine Learning Applications Across Disciplines: Case Studies on Forecasting, Classification, and Explainability, Bidge Yayınları, 2026, pp. 1–53. doi: 10.70269/4277655638.
+> M. Y. Kotman and M. Milli, "Güneş Enerjisi Üretimi Tahmininde Transformer Tabanlı ve Rejim Duyarlı Uyarlamalı Sinyal Filtreleme: Küresel Ölçekte Genellenebilir Ve Açıklanabilir Boru Hattı Tasarımı," in Machine Learning Applications Across Disciplines: Case Studies on Forecasting, Classification, and Explainability, Bidge Yayınları, 2026, pp. 1–53. https://doi.org/10.70269/10.70269/4277655638.
 ```
 
 ---
 
 ## 📌 APA 7 Format
 ```
-> Kotman, M. Y., & Milli, M. (2026). Güneş enerjisi üretimi tahmininde Transformer tabanlı ve rejim duyarlı uyarlamalı sinyal filtreleme: Küresel ölçekte genellenebilir ve açıklanabilir boru hattı tasarımı. In Machine Learning Applications Across Disciplines: Case Studies on Forecasting, Classification, and Explainability (pp. 1–53). Bidge Yayınları. https://doi.org/10.70269/4277655638
+> Kotman, M. Y., & Milli, M. (2026). Güneş enerjisi üretimi tahmininde Transformer tabanlı ve rejim duyarlı uyarlamalı sinyal filtreleme: Küresel ölçekte genellenebilir ve açıklanabilir boru hattı tasarımı. In Machine Learning Applications Across Disciplines: Case Studies on Forecasting, Classification, and Explainability (pp. 1–53). Bidge Yayınları. https://doi.org/10.70269/10.70269/4277655638
 ```
 
 ---
@@ -193,7 +193,7 @@ If you use this project in your research, please cite the corresponding publicat
   month     = jul,
   pages     = {1--53},
   doi       = {10.70269/4277655638},
-  url       = {https://doi.org/10.70269/4277655638}
+  url       = {https://doi.org/10.70269/10.70269/4277655638}
 }
 ```
 ---
